@@ -31,6 +31,7 @@ const routes = [
     path: "/",
     name: "prescriptions",
     component: PrescriptionsView,
+    beforeEnter: requireAuth,
   },
   {
     path: "/prescriptions/:id",

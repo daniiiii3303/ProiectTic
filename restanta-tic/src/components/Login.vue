@@ -33,14 +33,13 @@ const isPending = ref(false);
 const handleSubmit = async () => {
   error.value = null;
   isPending.value = true;
-
   try {
     const res = await axios.post("http://localhost:3000/api/users/login", {
       email: email.value,
       password: password.value,
     });
-
     localStorage.setItem("token", JSON.stringify(res.data.idToken));
+
     error.value = null;
     isPending.value = false;
   } catch (err) {

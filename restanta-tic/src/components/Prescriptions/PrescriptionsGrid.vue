@@ -102,6 +102,7 @@ export default {
 .prescription-description {
     font-size: 14px;
     line-height: 1.4;
+    color: black;
 }
 
 .prescription-actions {

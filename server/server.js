@@ -42,24 +42,27 @@ app.get("/reset", async (req, res) => {
             for (let i = 0; i < 2; i++) {
                 db.collection("prescriptions")
                     .add({
-                        title: chance.title(),
-                        description: chance.description(),
+                        description: chance.sentence({ words: 5 }),
+                        title: chance.word(),
                     })
                     .then((ref) => {
                         for (let j = 0; j < 2; j++) {
-                            const medicines = chance.pickone([
-                                "nurofen",
-                                "paracetamol",
-                                "diclac gel",
-                                "algocalmin"
+                            const medicineTitle = chance.pickone([
+                                "Metformin",
+                                "Zolpidem",
+                                "Amoxicillin",
+                            ]);
+                            const medicineFamily = chance.pickone([
+                                "Analgesics",
+                                "Antidepressants",
+                                "Antihypertensives",
                             ]);
                             db.collection("prescriptions")
                                 .doc(ref.id)
                                 .collection("medicines")
                                 .add({
-                                    title: chance.title(),
-                                    description: chance.description(),
-                                    medicines: medicines,
+                                    title: medicineTitle,
+                                    family: medicineFamily,
                                 });
                         }
                     })
@@ -77,7 +80,6 @@ app.get("/reset", async (req, res) => {
             return res.status(500).json({ message: err.message });
         });
 });
-
 
 
 app.get("/", (req, res) => {

@@ -4,7 +4,7 @@
         <form @submit="handleSubmit">
             <div class="form-group">
                 <label for="name">Display Name</label>
-                <input type="text" id="name" v-model="name" required />
+                <input type="text" id="name" v-model="displayName" required />
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
@@ -30,7 +30,7 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 const email = ref("");
 const password = ref("");
-const name = ref("");
+const displayName = ref("");
 const error = ref(null);
 const isPending = ref(false);
 
@@ -39,10 +39,11 @@ const handleSubmit = async () => {
     isPending.value = true;
     try {
         const res = await axios.post("http://localhost:3000/api/users/register", {
-            displayName: name.value,
+            displayName: displayName.value,
             email: email.value,
             password: password.value,
         });
+
         if (!res) {
             throw new Error("Could not complete register");
         }
